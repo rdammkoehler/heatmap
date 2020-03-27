@@ -8,6 +8,13 @@
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
 
+<p>
+  ultimately this should give a good visualization of temp in a room.
+  Ideally the 'middle' reading is green and we get more yellow then red
+  as we diverge.
+  Just need to work out the math :-)
+  </p>
+
 <!-- Load color palettes -->
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
@@ -61,7 +68,29 @@
 	  .select(".domain").remove()
 
       // Build color scale
+      // probably the math here needs to use 0.5 as 'on-target'
+      // then divergence from target is from green to red
+      // 0..........0.5........1.0
+      // red.......green.......red
+      //
+      // take the abs(target - temp), add 0.5 to the result
+      // then get the interpolation right
+      
       var myColor = function(temp) {
+	  // this is the abs of target version, not as pretty
+	  //const target = 70;
+	  //const range = 0.1;
+	  //const factor = 2;
+	  //const value = 0.5 + ( factor * ( ( Math.trunc( Math.abs( target - temp ) / 10 ) / 10 ) ) );
+	  // abs(70-70)/100 = 0
+	  // abs(70-82)/100=0.12
+	  //console.log(value);
+	  //if ( value > (0.5 + ( factor * range ) ) ) {
+	  //    return 'red';
+	  //}
+	  //return d3.interpolateYlGn(value);
+	  
+	  // this is so far, the best version we've made
 	  const target = 70;
 	  const range = 0.2;
 	  if (temp > (target * (1 + range))
@@ -70,8 +99,8 @@
 	  } 
 	  const offset = 15; //shifts us left or right
 	  const limit = 25;
-	  const t = Math.trunc(10 * (1-((offset + target - temp)/limit)))/10;
-	  return d3.interpolateYlGn(t);
+	  const value = Math.trunc(10 * (1-((offset + target - temp)/limit)))/10;
+	  return d3.interpolateYlGn(value);
       };
       
       // create a tooltip
@@ -144,7 +173,7 @@
     .attr("y", -50)
     .attr("text-anchor", "left")
     .style("font-size", "22px")
-    .text("A d3.js heatmap");
+    .text("Grow Room Temperature Map");
 
   // Add subtitle to graph
   svg.append("text")
@@ -154,5 +183,5 @@
     .style("font-size", "14px")
     .style("fill", "grey")
     .style("max-width", 400)
-    .text("A short description of the take-away message of this chart.");
+    .text("Current temperature at the plant. Target: 70F, range: 20%");
 </script>
