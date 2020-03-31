@@ -1,0 +1,21 @@
+<div id="heatmap">
+  <svg width='450' height='80'>
+    <g transform="translate(40,80)">
+      <text x="0" y="-50" text-anchor="left" style="font-size: 22px;">
+        Grow Room Temperature Map
+      </text>
+      <text x="0" y="-20" text-anchor="left" style="font-size: 14px; fill: grey; max-width: 400px;">
+        Current temperature at the plant. Target: {{targetTemp}}F, range: {{targetRange * 100}}%
+      </text>
+    </g>
+  </svg>
+  <div class="map">
+  </div>
+  <div class="tooltip"
+       style="opacity: 0;
+       background-color: white;
+       border: 2px solid;
+       border-radius: 5px;
+       padding: 5px; width: 20%;">
+  </div>
+</div>
