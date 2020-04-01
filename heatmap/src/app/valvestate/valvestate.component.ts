@@ -21,7 +21,7 @@ export class ValvestateComponent implements OnInit {
     const width = 500;
     const height = 50;
     const svg = select('.barchart').append('svg').attr('width', width).attr('height', height);
-    const xScale = scaleBand().range([0, width]).padding(0.4);
+    const xScale = scaleBand().range([0, width]); // .padding(0.4);
     const yScale = scaleLinear().range([height + 20, 0]);
     const g = svg.append('g').attr('transform', 'translate(' + 25 + ',' + -20 + ')');
     csv('assets/valvestate.csv').then((data) => {
