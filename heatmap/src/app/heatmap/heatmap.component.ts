@@ -45,7 +45,7 @@ export class HeatmapComponent implements OnInit {
     this.width = Number(this.width);
     this.height = Number(this.height);
     this.drawChart();
-    console.log(this.colorShift, this.dataUrl, this.granularity, this.targetRange, this.targetTemp);
+    // console.log(this.colorShift, this.dataUrl, this.granularity, this.targetRange, this.targetTemp);
   }
 
   private drawChart() {
@@ -129,7 +129,7 @@ export class HeatmapComponent implements OnInit {
       return this.alertColor;
     }
     const value = Math.trunc(10 * (1 - ((this.colorShift + target - temp) / this.granularity))) / 10;
-    console.log(value);
+    // console.log(value);
     return interpolateYlGn(value);
   }
 
